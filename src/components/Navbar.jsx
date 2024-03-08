@@ -35,30 +35,30 @@ export default function Navbar() {
             href="/"
           >
             <FlagIcon className="h-6 w-6" />
-            <span className="ml-2 text-xl font-semibold uppercase text-blue-900 dark:text-gray-100">
+            <span className="ml-2 text-xl font-semibold uppercase text-gray-700 dark:text-gray-100">
               Devjobsbd
             </span>
           </Link>
           <nav className="hidden lg:flex space-x-4">
             {navLinks?.map((link, i) => (
-              <Button key={i} className="shadow" variant="outline">
-                <Link
-                  className="text-gray-700 dark:text-gray-100"
-                  href={link.href}
-                >
-                  {link.label}
-                </Link>
-              </Button>
+              <Link key={i} href={link.href} className="flex-1">
+                <Button className="shadow w-full" variant="outline">
+                  <span className="block w-full text-gray-700 dark:text-gray-100">
+                    {link.label}
+                  </span>
+                </Button>
+              </Link>
             ))}
             <ModeToggle />
           </nav>
+
           <div className="block lg:hidden">
             <ModeToggle />
           </div>
           <div className="block lg:hidden">
             <button
               onClick={toggleMenu}
-              className="flex items-center px-3 py-2 border rounded text-gray-700 dark:text-gray-100 border-gray-400 dark:border-gray-600 hover:text-gray-900 hover:border-gray-900"
+              className="flex items-center px-3 py-3 border rounded dark:bg-background"
             >
               <svg
                 className="h-3 w-3 fill-current"
@@ -90,17 +90,17 @@ export default function Navbar() {
       >
         <div className="w-full pt-4 flex justify-between px-4">
           <Link
-            className="flex animate-pulse items-center text-sm font-bold tracking-wider text-gray-900 dark:text-gray-100"
+            className="w-full flex animate-pulse items-center text-sm font-bold tracking-wider text-gray-900 dark:text-gray-100"
             href="/"
           >
             <FlagIcon className="h-6 w-6" />
-            <span className="ml-2 text-base font-semibold uppercase text-blue-900 dark:text-gray-100">
+            <span className="ml-2 text-base font-semibold uppercase text-gray-700 dark:text-gray-100">
               Devjobsbd
             </span>
           </Link>
           <svg
             onClick={toggleMenu}
-            className="h-8 w-8 fill-current text-blue-900 animate-pulse hover:text-gray-800"
+            className="h-8 w-8 fill-current text-gray-700 animate-pulse hover:text-gray-800 dark:text-gray-100 dark:hover:text-gray-200 cursor-pointer transition-all duration-300 ease-in-out"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
           >
@@ -115,9 +115,12 @@ export default function Navbar() {
         <div className="flex flex-col items-center py-16 px-4">
           <ul className="w-full h-full divide-y divide-gray-200 dark:divide-gray-800">
             {navLinks?.map((link, i) => (
-              <li key={i} className="py-4">
+              <li
+                key={i}
+                className="py-4 hover:bg-gray-100 dark:hover:bg-gray-800 p-4 rounded-md cursor-pointer  transition-all duration-300 ease-in-out"
+              >
                 <Link
-                  className="text-gray-700 dark:text-gray-100"
+                  className="block text-gray-700 dark:text-gray-100 w-full font-semibold tracking-wider"
                   href={link.href}
                   onClick={toggleMenu}
                 >
