@@ -4,6 +4,7 @@ import { navLinks } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ModeToggle } from "./toggle";
+import { Badge } from "./ui/badge";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,9 +28,9 @@ export default function Navbar() {
   }, [sidebarRef]);
 
   return (
-    <section className="md:container mx-auto bg-white shadow dark:bg-gray-900">
+    <section className="px-4 md:px-8 bg-white shadow dark:bg-gray-900">
       <header className="">
-        <div className="flex items-center justify-between px-4 py-6">
+        <div className="flex items-center justify-between py-6">
           <Link
             className="flex items-center text-xl font-bold tracking-wider text-gray-900 dark:text-gray-100 animate-pulse"
             href="/"
@@ -38,6 +39,9 @@ export default function Navbar() {
             <span className="ml-2 text-xl font-semibold uppercase text-gray-700 dark:text-gray-100">
               Devjobsbd
             </span>
+            <Badge className="-ml-2 -mt-8 border-red-700" variant="outline">
+              Beta
+            </Badge>
           </Link>
           <nav className="hidden lg:flex space-x-4">
             {navLinks?.map((link, i) => (
