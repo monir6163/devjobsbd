@@ -28,7 +28,7 @@ export default function Navbar() {
   }, [sidebarRef]);
 
   return (
-    <section className="px-4 md:px-8 bg-white shadow dark:bg-gray-900">
+    <section className="px-4 md:px-8 bg-white border-b dark:bg-gray-900 sticky top-0 z-50 tranjsition-all duration-300 ease-in-out">
       <header className="">
         <div className="flex items-center justify-between py-6">
           <Link

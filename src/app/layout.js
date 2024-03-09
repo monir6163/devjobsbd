@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Inter as FontSans } from "next/font/google";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
             speed={200}
           />
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>
