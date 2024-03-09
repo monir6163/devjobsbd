@@ -1,6 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+const BabulImg = "/images/babul.jpg";
+const MonirImg = "/images/monird.jpg";
+const MehediImg = "/images/mehedi.jpg";
+const EmonImg = "/images/emon.jpg";
 
 const Hero = () => {
   return (
@@ -32,98 +37,40 @@ const Hero = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div className="grid gap-4">
-              <div>
+          <div className="grid grid-cols-3 gap-4">
+            <div className="relative h-48 md:h-72 flex self-center">
+              <Image
+                src={BabulImg}
+                width={300}
+                height={300}
+                alt="Babul"
+                className="w-full h-auto rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
+              />
+            </div>
+            <div className="relative flex flex-col gap-4">
+              <div className="h-24 md:h-48">
                 <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg"
-                  alt=""
+                  src={MehediImg}
+                  alt="Mehedi"
+                  className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
-              <div>
+              <div className="h-24 md:h-48">
                 <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg"
-                  alt=""
+                  src={EmonImg}
+                  alt="Emon"
+                  className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
             </div>
-            <div className="grid gap-4">
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="grid gap-4">
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg"
-                  alt=""
-                />
-              </div>
-            </div>
-            <div className="grid gap-4">
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg"
-                  alt=""
-                />
-              </div>
-              <div>
-                <img
-                  className="h-auto max-w-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-                  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg"
-                  alt=""
-                />
-              </div>
+            <div className="relative h-48 md:h-72 flex self-center">
+              <Image
+                src={MonirImg}
+                width={300}
+                height={300}
+                alt="Monir"
+                className="w-full h-auto rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
+              />
             </div>
           </div>
         </div>

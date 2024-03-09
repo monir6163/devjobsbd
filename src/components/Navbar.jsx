@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <section className="px-4 md:px-8 bg-white border-b dark:bg-gray-900 sticky top-0 z-50 tranjsition-all duration-300 ease-in-out">
-      <header className="">
+      <header className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between py-6">
           <Link
             className="flex items-center text-xl font-bold tracking-wider text-gray-900 dark:text-gray-100 animate-pulse"
@@ -82,7 +82,7 @@ export default function Navbar() {
       </header>
       {/* Responsive Right Sidebar */}
       <div
-        className={`fixed inset-0 bg-black opacity-25 z-40 lg:hidden ${
+        className={`fixed inset-0  opacity-25 z-40 lg:hidden ${
           menuOpen ? "block" : "hidden"
         }`}
       />
