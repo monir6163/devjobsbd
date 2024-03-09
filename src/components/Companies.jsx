@@ -10,7 +10,7 @@ const Companies = () => {
           className="gap-3 border rounded-lg p-5 hover:bg-muted/60"
           key={i}
         >
-          <div className="w-full flex flex-col gap-4 md:flex-row justify-between p-2">
+          <div className="w-full flex flex-col gap-4 md:flex-row justify-between">
             <div className="flex flex-col text-center md:text-left gap-2 mb-2">
               <h3 className="text-2xl font-bold text-gray-700 font-heading leading-snug dark:text-slate-100">
                 6amTech
@@ -40,12 +40,12 @@ const Companies = () => {
                       d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     ></path>
                   </svg>
-                  <span className="text-sm">Hires Intern</span>
+                  <span className="text-xs">Hires Intern</span>
                 </div>
               </div>
 
               <div>
-                <div className="flex justify-center gap-1 b bg-green-700 text-white px-2 py-1 rounded-xl items-center dark:bg-green-500">
+                <div className="flex justify-center gap-1 bg-green-700 text-white px-2 py-1 rounded-xl items-center dark:bg-green-500">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -60,12 +60,12 @@ const Companies = () => {
                       d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
                     ></path>
                   </svg>
-                  <span className="text-sm">Hires Fresher</span>
+                  <span className="text-xs">Hires Fresher</span>
                 </div>
               </div>
             </div>
           </div>
-          <div className="w-full md:grid md:grid-cols-5 justify-between gap-8 p-4">
+          <div className="w-full md:grid md:grid-cols-5 justify-between gap-8 pt-8">
             <div className="w-full flex flex-col gap-2">
               <div className="flex my-1 gap-1 text-gray-700 dark:text-gray-100">
                 <svg
