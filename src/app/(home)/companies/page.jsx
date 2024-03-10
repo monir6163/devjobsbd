@@ -15,8 +15,8 @@ const page = () => {
             </p>
           </div>
           <div>
-            <Button className="btn btn-primary">
-              <Link href="/companies/new">Add New Company</Link>
+            <Button className="btn btn-primary" asChild>
+              <Link href="/companies/add-new-job">Add New Company</Link>
             </Button>
           </div>
         </div>
