@@ -1,10 +1,11 @@
 import Companies from "@/components/Companies";
+import Filterjob from "@/components/Filterjob";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 const page = () => {
   return (
-    <section className="px-4 md:px-8">
+    <main className="max-w-6xl m-auto px-3">
       <div className="py-8 text-center md:text-left">
         <h1 className="text-3xl md:text-5xl pb-2 font-bold">Companies</h1>
         <div className="flex flex-col gap-3 md:flex-row justify-between">
@@ -21,8 +22,11 @@ const page = () => {
         </div>
         <div className="border-b pt-4"></div>
       </div>
-      <Companies />
-    </section>
+      <section className="flex flex-col md:flex-row gap-4">
+        <Filterjob />
+        <Companies />
+      </section>
+    </main>
   );
 };
 

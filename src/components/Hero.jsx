@@ -9,7 +9,7 @@ const EmonImg = "/images/emon.jpg";
 
 const Hero = () => {
   return (
-    <section className="px-4 md:px-8">
+    <section className="">
       <div className="overflow-hidden py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="w-full">

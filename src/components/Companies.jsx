@@ -4,13 +4,13 @@ import { Button } from "./ui/button";
 
 const Companies = () => {
   return (
-    <div className="py-4 space-y-4 grow">
+    <div className="space-y-4 grow mb-5">
       {companies.map((company, i) => (
         <article
-          className="gap-3 border rounded-lg p-5 hover:bg-muted/60"
           key={i}
+          className="gap-3 border rounded-lg p-5 hover:bg-muted/60"
         >
-          <div className="w-full flex flex-col gap-4 md:flex-row justify-between">
+          <div className="flex flex-col gap-4 md:flex-row justify-between">
             <div className="flex flex-col text-center md:text-left gap-2 mb-2">
               <h3 className="text-2xl font-bold text-gray-700 font-heading leading-snug dark:text-slate-100">
                 6amTech
@@ -65,7 +65,7 @@ const Companies = () => {
               </div>
             </div>
           </div>
-          <div className="w-full md:grid md:grid-cols-5 justify-between gap-8 pt-8">
+          <div className="md:grid md:grid-cols-5 justify-between gap-8 pt-8">
             <div className="w-full flex flex-col gap-2">
               <div className="flex my-1 gap-1 text-gray-700 dark:text-gray-100">
                 <svg
@@ -193,45 +193,26 @@ const Companies = () => {
                     </g>
                   </svg>
                 </Link>
-
-                {/* <Link
-                href="https://6amtech.com/career"
-                target="_blank"
-                className="flex flex-wrap justify-center items-center w-auto p-1 hover:text-blue-500 transition-all duration-300 ease-in-out"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z"
-                  ></path>
-                </svg>
-              </Link> */}
               </div>
             </div>
 
             <div className="w-full h-full col-span-4 mt-10 md:mt-0 flex flex-col border-l border-gray-300 px-4 py-2 text-sm text-gray-700 dark:text-gray-100">
-              <div>
-                6amTech is a Bangladeshi software company that develops web and
-                mobile applications for its IT partner and entrepreneurs, We are
-                selling software in partnership with Envato, the world&apos;s
-                Largest software marketplace, bamTech is one of the
-                fastest-growing software providers in Codecanyon. Our mission is
-                to help our clients succeed by providing customizable software
-                solutions and expert support. We believe in putting our clients
-                first, and our core values include innovation, integrity, and
-                excellence. We also take pride in our positive and productive
-                work environment and are committed to fostering a culture of
-                innovation and excellence.
+              <div className="md:max-w-[38rem]">
+                <p>
+                  6amTech is a Bangladeshi software company that develops web
+                  and mobile applications for its IT partner and entrepreneurs,
+                  We are selling software in partnership with Envato, the
+                  world&apos;s Largest software marketplace, bamTech is one of
+                  the fastest-growing software providers in Codecanyon. Our
+                  mission is to help our clients succeed by providing
+                  customizable software solutions and expert support. We believe
+                  in putting our clients first, and our core values include
+                  innovation, integrity, and excellence. We also take pride in
+                  our positive and productive work environment and are committed
+                  to fostering a culture of innovation and excellence.
+                </p>
               </div>
-              <div className="w-auto p-2">
+              <div className="md:max-w-[38rem]">
                 <div className="w-full flex flex-col md:flex-row break-words text-center md:text-left gap-2 items-center my-4 text-gray-700 dark:text-gray-100 font-semibold border border-gray-300 rounded p-2 text-sm">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -248,9 +229,11 @@ const Companies = () => {
                     ></path>
                   </svg>
 
-                  <span className="inline-block">Flutter, Laravel</span>
+                  <span className="inline-block">
+                    PHP, ReactJS, Wordpress, Javascript, HTML, CSS, Laravel,
+                  </span>
                 </div>
-                <Button className="w-full md:w-auto">
+                <Button asChild className="w-full md:w-auto">
                   <Link href="/companies/6amtech">Apply Now</Link>
                 </Button>
               </div>

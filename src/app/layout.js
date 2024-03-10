@@ -18,7 +18,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={fontSans.className}>
+      <body className={`${fontSans.className} min-w[350px]`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
