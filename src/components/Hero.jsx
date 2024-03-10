@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { FacebookIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
@@ -21,19 +22,22 @@ const Hero = () => {
               companies.
             </p>
             <div className="flex md:flex-row flex-col gap-4">
-              <Link href="/companies" className="text-center md:text-left">
-                <Button variant="outline">Browse Companies</Button>
-              </Link>
-              <Link
-                href="https://www.facebook.com/btebresultshub"
-                target="_blank"
-                className="text-center md:text-left animate-pulse"
-              >
-                <Button variant="secondary">
-                  <span className="mr-1">👍</span>
+              <Button variant="outline" asChild>
+                <Link href="/companies" className="text-center md:text-left">
+                  Browse Companies
+                </Link>
+              </Button>
+
+              <Button variant="secondary" asChild>
+                <Link
+                  target="_blank"
+                  className="mr-1"
+                  href="https://www.facebook.com/btebresultshub"
+                >
+                  <FacebookIcon size={18} />
                   Join the Community
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
 

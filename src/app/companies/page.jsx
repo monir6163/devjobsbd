@@ -10,8 +10,8 @@ const page = () => {
         <h1 className="text-3xl md:text-5xl pb-2 font-bold">Companies</h1>
         <div className="flex flex-col gap-3 md:flex-row justify-between">
           <div>
-            <p className="text-gray-700 dark:text-gray-100">
-              Here are the companies that are currently using our services.
+            <p className="text-gray-700 dark:text-gray-100 capitalize">
+              Bangladeshi tech company directory listings.
             </p>
           </div>
           <div>
