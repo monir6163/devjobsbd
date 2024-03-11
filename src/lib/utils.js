@@ -36,6 +36,7 @@ export const companiesShema = z.object({
     }, "Only .jpg, .jpeg, .png and .webp formats are supported.")
     .optional(),
   companyUrl: z.string().url("Invalid URL"),
-  //worktype select field value
   workType: z.string(),
+  hireInterns: z.boolean().default(false),
+  hireFreshers: z.boolean().default(false),
 });

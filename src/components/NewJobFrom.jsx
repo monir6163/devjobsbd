@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,6 +11,16 @@ import { Input } from "@/components/ui/input";
 import { companiesShema } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import LoadingButton from "./LoadingButton";
+import { Label } from "./ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Switch } from "./ui/switch";
 import { Textarea } from "./ui/textarea";
 
 const NewJobFrom = () => {
@@ -24,17 +33,37 @@ const NewJobFrom = () => {
     formState: { isSubmitting },
   } = form;
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    let logo = data.companyLogo ? data.companyLogo[0] : "";
     let formData = new FormData();
     formData.append("companyName", data.companyName);
-    formData.append("companyLogo", data.companyLogo[0]);
+    formData.append("companyLogo", logo);
     formData.append("companyUrl", data.companyUrl);
     formData.append("companyEmail", data.companyEmail);
     formData.append("companyLinkedin", data.companyLinkedin);
     formData.append("companyFacebook", data.companyFacebook);
     formData.append("companyCareersUrl", data.companyCareersUrl);
     formData.append("workType", data.workType);
-    console.log(data);
+    formData.append("officeLocation", data.officeLocation);
+    formData.append("established", data.established);
+    formData.append("totalEmployees", data.totalEmployees);
+    formData.append("primaryTechStack", data.primaryTechStack);
+    formData.append("salaryRange", data.salaryRange);
+    formData.append("currentHiringRole", data.currentHiringRole);
+    formData.append("hireInterns", data.hireInterns);
+    formData.append("hireFreshers", data.hireFreshers);
+    formData.append("companyDescription", data.companyDescription);
+    try {
+      const res = await fetch("/api/companies", {
+        method: "POST",
+        body: formData,
+      });
+      if (res.ok) {
+        console.log("Company added successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -192,21 +221,21 @@ const NewJobFrom = () => {
                 render={({ field }) => (
                   <FormItem className="w-full">
                     <FormLabel>Work Type</FormLabel>
-                    <FormControl>
-                      <select
-                        {...field}
-                        value={field.workType}
-                        onChange={field.onChange}
-                        onBlur={field.onBlur}
-                        ref={field.ref}
-                        className="h-10 w-full appearance-none truncate rounded-md border border-input bg-background py-2 pl-3 pr-8 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                      >
-                        <option value="">Select Work Type</option>
-                        <option value="onsite">Onsite</option>
-                        <option value="hybrid">Hybrid</option>
-                        <option value="remote">Remote</option>
-                      </select>
-                    </FormControl>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Job Type" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="onsite">Onsite</SelectItem>
+                        <SelectItem value="remote">Remote</SelectItem>
+                        <SelectItem value="hybrid">Hybrid</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -320,6 +349,44 @@ const NewJobFrom = () => {
                 )}
               />
             </div>
+            <div className="flex  gap-1 items-center">
+              <FormField
+                control={control}
+                name="hireInterns"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <Label htmlFor="hire_interns">Hire Interns</Label>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={control}
+                name="hireFreshers"
+                render={({ field }) => (
+                  <FormItem className="w-full">
+                    <FormControl>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          checked={field.value}
+                          onCheckedChange={field.onChange}
+                        />
+                        <Label htmlFor="hire_freshers">Hire freshers</Label>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={control}
               name="companyDescription"
@@ -338,11 +405,13 @@ const NewJobFrom = () => {
               )}
             />
 
-            <div className="w-2/4 mx-auto">
-              <Button className="w-full" type="submit">
-                Submit
-              </Button>
-            </div>
+            <LoadingButton
+              className="w-full"
+              type="submit"
+              loading={isSubmitting}
+            >
+              Submit
+            </LoadingButton>
           </form>
         </Form>
       </div>

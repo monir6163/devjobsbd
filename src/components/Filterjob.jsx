@@ -3,9 +3,7 @@ import { Label } from "./ui/label";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
@@ -29,16 +27,13 @@ const Filterjob = () => {
               Job Type
             </Label>
             <Select id="job_type">
-              <SelectTrigger className="w-full">
+              <SelectTrigger>
                 <SelectValue placeholder="Select Job Type" />
               </SelectTrigger>
               <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Select Job Type</SelectLabel>
-                  <SelectItem value="onsite">Onsite</SelectItem>
-                  <SelectItem value="hybrid">Hybrid</SelectItem>
-                  <SelectItem value="remote">Remote</SelectItem>
-                </SelectGroup>
+                <SelectItem value="onsite">Onsite</SelectItem>
+                <SelectItem value="remote">Remote</SelectItem>
+                <SelectItem value="hybrid">Hybrid</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -54,17 +49,15 @@ const Filterjob = () => {
             >
               Tech Stack
             </Label>
+
             <Select id="tech_stack">
-              <SelectTrigger className="w-full">
+              <SelectTrigger>
                 <SelectValue placeholder="Select Tech Stack" />
               </SelectTrigger>
               <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Select Tech Stack</SelectLabel>
-                  <SelectItem value="onsite">Onsite</SelectItem>
-                  <SelectItem value="hybrid">Hybrid</SelectItem>
-                  <SelectItem value="remote">Remote</SelectItem>
-                </SelectGroup>
+                <SelectItem value="onsite">Onsite</SelectItem>
+                <SelectItem value="remote">Remote</SelectItem>
+                <SelectItem value="hybrid">Hybrid</SelectItem>
               </SelectContent>
             </Select>
           </div>
