@@ -5,7 +5,7 @@ import { Button } from "./ui/button";
 const Companies = () => {
   return (
     <div className="space-y-4 grow mb-5">
-      {companies.map((company, i) => (
+      {companies?.map((company, i) => (
         <article
           key={i}
           className="md:max-w-[53.5rem] gap-3 border rounded-lg p-5 hover:bg-muted/60"
@@ -13,12 +13,12 @@ const Companies = () => {
           <div className="flex flex-col gap-4 md:flex-row justify-between">
             <div className="flex flex-col text-center md:text-left gap-2 mb-2">
               <h3 className="text-2xl font-bold text-gray-700 font-heading leading-snug dark:text-slate-100">
-                {company.company_name}
+                {company?.company_name}
               </h3>
               <div className="flex gap-2 justify-center md:justify-start text-xs">
                 <div className="px-2 py-1 border rounded-xl bg-gray-300 text-gray-900 dark:bg-gray-800 dark:text-gray-100">
                   <span className="inline-block font-semibold text-xs text-gray-900 dark:text-gray-100">
-                    {company.work_type}
+                    {company?.work_type}
                   </span>
                 </div>
               </div>

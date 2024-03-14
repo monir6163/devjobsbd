@@ -1,3 +1,4 @@
+import LoadingButton from "./LoadingButton";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import {
@@ -70,7 +71,9 @@ const Filterjob = () => {
             <Label htmlFor="hire_freshers">Hire freshers</Label>
           </div>
           <div className="flex items-center space-x-2">
-            <Button className="w-full">Filter Jobs</Button>
+            <LoadingButton className="w-full" type="submit" loading={false}>
+              Filter Jobs
+            </LoadingButton>
             <Button className="w-full" variant="secondary">
               Clear Filter
             </Button>

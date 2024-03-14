@@ -74,3 +74,16 @@
     @apply bg-background text-foreground;
   }
 }
+.css-gmon4l-DropDown,
+.react-dropdown-select-dropdown {
+  background-color: #1a1a1a !important;
+}
+.react-dropdown-select-item {
+  color: #fff !important;
+}
+.css-wmy1p7-ReactDropdownSelect {
+  border: 1px solid hsl(214.3 31.8% 91.4%) !important;
+}
+.dark .css-wmy1p7-ReactDropdownSelect {
+  border: 1px solid hsl(217.2 32.6% 17.5%) !important;
+}

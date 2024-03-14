@@ -1,73 +1,86 @@
 "use client";
+
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { companiesShema } from "@/lib/utils";
+  companiesShema,
+  hireInternsandFreshersData,
+  workTypeData,
+} from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import axios from "axios";
+import { useState } from "react";
+import Select from "react-dropdown-select";
+import { Controller, useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import LoadingButton from "./LoadingButton";
-import { Label } from "./ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "./ui/select";
-import { Switch } from "./ui/switch";
-import { Textarea } from "./ui/textarea";
 
 const NewJobFrom = () => {
-  const form = useForm({
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    formState: { errors },
+  } = useForm({
+    // defaultValues: {
+    //   workType: [],
+    //   hireInternsandFreshers: [],
+    // },
     resolver: zodResolver(companiesShema),
   });
-  const {
-    handleSubmit,
-    control,
-    formState: { isSubmitting },
-  } = form;
 
   const onSubmit = async (data) => {
-    let logo = data.companyLogo ? data.companyLogo[0] : "";
-    let formData = new FormData();
-    formData.append("companyName", data.companyName);
-    formData.append("companyLogo", logo);
-    formData.append("companyUrl", data.companyUrl);
-    formData.append("companyEmail", data.companyEmail);
-    formData.append("companyLinkedin", data.companyLinkedin);
-    formData.append("companyFacebook", data.companyFacebook);
-    formData.append("companyCareersUrl", data.companyCareersUrl);
-    formData.append("workType", data.workType);
-    formData.append("officeLocation", data.officeLocation);
-    formData.append("established", data.established);
-    formData.append("totalEmployees", data.totalEmployees);
-    formData.append("primaryTechStack", data.primaryTechStack);
-    formData.append("salaryRange", data.salaryRange);
-    formData.append("currentHiringRole", data.currentHiringRole);
-    formData.append("hireInterns", data.hireInterns);
-    formData.append("hireFreshers", data.hireFreshers);
-    formData.append("companyDescription", data.companyDescription);
+    setIsSubmitting(true);
+    const formData = new FormData();
+    for (const key in data) {
+      if (key === "companyLogo") {
+        formData.append(key, data[key][0]);
+      } else if (key === "workType") {
+        formData.append(key, JSON.stringify(data[key]));
+      } else if (key === "hireInternsandFreshers") {
+        formData.append(key, JSON.stringify(data[key]));
+      } else {
+        formData.append(key, data[key]);
+      }
+    }
     try {
-      const res = await fetch("/api/companies", {
-        method: "POST",
-        body: formData,
+      const res = await axios.post(`http://localhost:5000/api/jobs`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-      if (res.ok) {
-        console.log("Company added successfully");
+
+      if (res.status === 201) {
+        const newResolve = new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(res);
+            setIsSubmitting(false);
+            reset();
+          }, 2000);
+        });
+        toast.promise(newResolve, {
+          loading: "Submitting...",
+          success: "Job added successfully",
+          error: "Something went wrong, try again",
+        });
       }
     } catch (error) {
-      console.log(error);
+      setIsSubmitting(false);
+
+      toast.error(
+        error.response?.data?.message || "Something went wrong, try again",
+        {
+          style: {
+            minWidth: "250px",
+          },
+        }
+      );
     }
   };
 
   return (
     <main className="max-w-3xl m-auto my-10 space-y-10">
+      <Toaster />
       <div className="space-y-5 text-center">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
           Find your perfect developer
@@ -83,337 +96,388 @@ const NewJobFrom = () => {
             Provide a job description and details
           </p>
         </div>
-        <Form {...form}>
-          <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="companyName"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Company Name</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyName}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="companyLogo"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Company Logo</FormLabel>
-                    <FormControl>
-                      <Input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => {
-                          field.onChange(e.target.files);
-                        }}
-                        value={field.companyLogo}
-                        ref={field.ref}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="companyUrl"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Company Url</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyUrl}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="companyEmail"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Company Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyEmail}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="companyLinkedin"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Likedin Url</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyLinkedin}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="companyFacebook"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Facebook Url</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyFacebook}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="companyCareersUrl"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Apply Url</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.companyCareersUrl}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="workType"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Work Type</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select Job Type" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="onsite">Onsite</SelectItem>
-                        <SelectItem value="remote">Remote</SelectItem>
-                        <SelectItem value="hybrid">Hybrid</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="officeLocation"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Location</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.officeLocation}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="established"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Established</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.established}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="totalEmployees"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Total Employees</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.totalEmployees}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="primaryTechStack"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Primary Tech Stack</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.primaryTechStack}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex flex-col md:flex-row gap-3 items-center">
-              <FormField
-                control={control}
-                name="salaryRange"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Salary Range</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.salaryRange}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="currentHiringRole"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Current Hiring Role</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="e.g. backend developer"
-                        {...field}
-                        value={field.currentHiringRole}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex  gap-1 items-center">
-              <FormField
-                control={control}
-                name="hireInterns"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <div className="flex items-center space-x-2">
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <Label htmlFor="hire_interns">Hire Interns</Label>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={control}
-                name="hireFreshers"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <div className="flex items-center space-x-2">
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                        <Label htmlFor="hire_freshers">Hire freshers</Label>
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <FormField
-              control={control}
-              name="companyDescription"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Company Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      {...field}
-                      value={field.companyDescription}
-                      placeholder="Type your message here."
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
-            <LoadingButton
-              className="w-full"
-              type="submit"
-              loading={isSubmitting}
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyName"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Name
+                <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="companyName"
+                id="companyName"
+                {...register("companyName")}
+                placeholder="Enter company name"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.companyName && (
+                <span className="text-red-500 text-sm">
+                  {errors.companyName.message}
+                </span>
+              )}
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyLogo"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Logo
+              </label>
+              <input
+                type="file"
+                name="companyLogo"
+                id="companyLogo"
+                {...register("companyLogo")}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.companyLogo && (
+                <span className="text-red-500 text-sm">
+                  {errors.companyLogo.message}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyUrl"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Website
+              </label>
+              <input
+                type="text"
+                name="companyUrl"
+                id="companyUrl"
+                {...register("companyUrl")}
+                placeholder="Enter company website"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.companyUrl && (
+                <span className="text-red-500 text-sm">
+                  {errors.companyUrl.message}
+                </span>
+              )}
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyEmail"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Email
+              </label>
+              <input
+                type="email"
+                name="companyEmail"
+                id="companyEmail"
+                {...register("companyEmail")}
+                placeholder="Enter company email"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyLinkedin"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company LinkedIn
+              </label>
+              <input
+                type="text"
+                name="companyLinkedin"
+                id="companyLinkedin"
+                {...register("companyLinkedin")}
+                placeholder="Enter company LinkedIn"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyFacebook"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Facebook
+              </label>
+              <input
+                type="text"
+                name="companyFacebook"
+                id="companyFacebook"
+                {...register("companyFacebook")}
+                placeholder="Enter company Facebook"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.companyFacebook && (
+                <span className="text-red-500 text-sm">
+                  {errors.companyFacebook.message}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="companyCareersUrl"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Company Careers URL
+              </label>
+              <input
+                type="text"
+                name="companyCareersUrl"
+                id="companyCareersUrl"
+                {...register("companyCareersUrl")}
+                placeholder="Enter company careers URL"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.companyCareersUrl && (
+                <span className="text-red-500 text-sm">
+                  {errors.companyCareersUrl.message}
+                </span>
+              )}
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="workType"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Work Type
+              </label>
+
+              <Controller
+                name="workType"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={workTypeData}
+                    multi
+                    placeholder="Select work type"
+                  />
+                )}
+              />
+              {/* <select
+                name="workType"
+                id="workType"
+                {...register("workType")}
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                <option value="">Select work type</option>
+                <option value="onsite">OnSite</option>
+                <option value="hybrid">Hybrid</option>
+                <option value="remote">Remote</option>
+              </select> */}
+              {errors.workType && (
+                <span className="text-red-500 text-sm">
+                  {errors.workType.message}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="officeLocation"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Office Location
+              </label>
+              <input
+                type="text"
+                name="officeLocation"
+                id="officeLocation"
+                {...register("officeLocation")}
+                placeholder="eg: Dhaka, Bangladesh"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="established"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Established
+              </label>
+              <input
+                type="text"
+                name="established"
+                id="established"
+                {...register("established")}
+                placeholder="eg: 2004"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="totalEmployees"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Total Employees
+              </label>
+              <input
+                type="text"
+                name="totalEmployees"
+                id="totalEmployees"
+                {...register("totalEmployees")}
+                placeholder="Eg: 100-200"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="hireInternsandFreshers"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Hire Interns and Freshers
+              </label>
+              <Controller
+                name="hireInternsandFreshers"
+                id="hireInternsandFreshers"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    options={hireInternsandFreshersData}
+                    multi
+                    placeholder="Select hire interns and freshers"
+                  />
+                )}
+              />
+
+              {errors.hireInternsandFreshers && (
+                <span className="text-red-500 text-sm">
+                  {errors.hireInternsandFreshers.message}
+                </span>
+              )}
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="salaryRange"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Salary Range
+              </label>
+              <input
+                type="text"
+                name="salaryRange"
+                id="salaryRange"
+                {...register("salaryRange")}
+                placeholder="Eg: 10000-20000 BDT"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="currentHiringRole"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Current Hiring Role
+              </label>
+              <input
+                type="text"
+                name="currentHiringRole"
+                id="currentHiringRole"
+                {...register("currentHiringRole")}
+                placeholder="Eg: Software Engineer, Frontend Developer, etc."
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row gap-3 items-center">
+            <div className="space-y-2 w-full">
+              <label
+                htmlFor="primaryTechStack"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Primary Tech Stack <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="primaryTechStack"
+                id="primaryTechStack"
+                {...register("primaryTechStack")}
+                placeholder="Eg: React, Node, Express, MongoDB, etc."
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              />
+              {errors.primaryTechStack && (
+                <span className="text-red-500 text-sm">
+                  {errors.primaryTechStack.message}
+                </span>
+              )}
+            </div>
+            {/* <div className="space-y-2 w-full">
+              <div className="flex items-center">
+                <input
+                  {...register("hireInterns")}
+                  id="hireInterns"
+                  type="checkbox"
+                  // value=""
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 focus:outline-none"
+                />
+                <label
+                  htmlFor="hireInterns"
+                  className="ms-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Hire Interns
+                </label>
+              </div>
+            </div>
+            <div className="space-y-2 w-full">
+              <div className="flex items-center">
+                <input
+                  {...register("hireFreshers")}
+                  id="hireFreshers"
+                  type="checkbox"
+                  // value=""
+                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded dark:bg-gray-700 focus:outline-none"
+                />
+                <label
+                  htmlFor="hireFreshers"
+                  className="ms-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                >
+                  Hire Freshers
+                </label>
+              </div>
+            </div> */}
+          </div>
+          <div className="space-y-2 w-full">
+            <label
+              htmlFor="companyDescription"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              Submit
-            </LoadingButton>
-          </form>
-        </Form>
+              Company Description
+            </label>
+            <textarea
+              name="companyDescription"
+              id="companyDescription"
+              {...register("companyDescription")}
+              placeholder="Enter company description"
+              className="flex h-40 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder-text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            />
+            {errors.companyDescription && (
+              <span className="text-red-500 text-sm">
+                {errors.companyDescription.message}
+              </span>
+            )}
+          </div>
+          <LoadingButton
+            loading={isSubmitting}
+            type="submit"
+            className="w-full mt-5"
+          >
+            Submit
+          </LoadingButton>
+        </form>
       </div>
     </main>
   );
