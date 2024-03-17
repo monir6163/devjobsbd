@@ -1,6 +1,6 @@
-import { ThemeProvider } from "@/components/theme-provider";
 import { Inter as FontSans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import { ThemeProvider } from "../../components/theme-provider";
 import "../globals.css";
 
 const fontSans = FontSans({
