@@ -7,6 +7,7 @@ const BabulImg = "/images/babul.jpg";
 const MonirImg = "/images/monird.jpg";
 const MehediImg = "/images/mehedi.jpg";
 const EmonImg = "/images/emon.jpg";
+const Rownok = "/images/rownok.jpg";
 
 const Hero = () => {
   return (
@@ -42,26 +43,19 @@ const Hero = () => {
           </div>
 
           <div className="grid grid-cols-3 gap-4">
-            <div className="relative h-48 md:h-72 flex self-center">
-              <Image
-                src={BabulImg}
-                width={300}
-                height={300}
-                alt="Babul"
-                className="w-full h-auto rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
-              />
-            </div>
             <div className="relative flex flex-col gap-4">
               <div className="h-24 md:h-48">
                 <img
                   src={MehediImg}
                   alt="Mehedi"
+                  title="Mehedi Hasan"
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
               <div className="h-24 md:h-48">
                 <img
                   src={EmonImg}
+                  title="Emon Hossain"
                   alt="Emon"
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
@@ -69,12 +63,31 @@ const Hero = () => {
             </div>
             <div className="relative h-48 md:h-72 flex self-center">
               <Image
-                src={MonirImg}
+                src={BabulImg}
                 width={300}
                 height={300}
-                alt="Monir"
+                alt="Babul"
+                title="Babul Akter"
                 className="w-full h-auto rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
               />
+            </div>
+            <div className="relative flex flex-col gap-4">
+              <div className="h-24 md:h-48">
+                <img
+                  src={Rownok}
+                  alt="Rownok"
+                  title="Rownok Jahan"
+                  className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
+                />
+              </div>
+              <div className="h-24 md:h-48">
+                <img
+                  src={MonirImg}
+                  alt="Monir"
+                  title="Monir Hossain"
+                  className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
+                />
+              </div>
             </div>
           </div>
         </div>
