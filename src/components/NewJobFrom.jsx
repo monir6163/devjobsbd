@@ -1,16 +1,17 @@
 "use client";
 
-import {
-  companiesShema,
-  hireInternsandFreshersData,
-  workTypeData,
-} from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { useState } from "react";
 import Select from "react-dropdown-select";
 import { Controller, useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
+import { base_url } from "../lib/config";
+import {
+  companiesShema,
+  hireInternsandFreshersData,
+  workTypeData,
+} from "../lib/utils";
 import LoadingButton from "./LoadingButton";
 
 const NewJobFrom = () => {
@@ -22,10 +23,10 @@ const NewJobFrom = () => {
     control,
     formState: { errors },
   } = useForm({
-    // defaultValues: {
-    //   workType: [],
-    //   hireInternsandFreshers: [],
-    // },
+    defaultValues: {
+      workType: [],
+      hireInternsandFreshers: [],
+    },
     resolver: zodResolver(companiesShema),
   });
 
@@ -44,7 +45,8 @@ const NewJobFrom = () => {
       }
     }
     try {
-      const res = await axios.post(`http://localhost:5000/api/jobs`, formData, {
+      let url = `${base_url}/jobs`;
+      const res = await axios.post(url, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -67,14 +69,11 @@ const NewJobFrom = () => {
     } catch (error) {
       setIsSubmitting(false);
 
-      toast.error(
-        error.response?.data?.message || "Something went wrong, try again",
-        {
-          style: {
-            minWidth: "250px",
-          },
-        }
-      );
+      toast.error("Something went wrong, try again", {
+        style: {
+          minWidth: "250px",
+        },
+      });
     }
   };
 
@@ -247,7 +246,7 @@ const NewJobFrom = () => {
                 htmlFor="workType"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Work Type
+                Work Type <span className="text-red-500">*</span>
               </label>
 
               <Controller
@@ -336,7 +335,8 @@ const NewJobFrom = () => {
                 htmlFor="hireInternsandFreshers"
                 className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
-                Hire Interns and Freshers
+                Hire Interns and Freshers{" "}
+                <span className="text-red-500">*</span>
               </label>
               <Controller
                 name="hireInternsandFreshers"

@@ -1,10 +1,10 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { navLinks } from "@/lib/utils";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { navLinks } from "../lib/utils";
 import { ModeToggle } from "./toggle";
 import { Badge } from "./ui/badge";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);

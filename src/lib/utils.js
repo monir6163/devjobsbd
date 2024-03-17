@@ -40,12 +40,12 @@ const logo = z
   }, "Only .jpg, .jpeg, .png and .webp formats are supported.");
 
 const workarray = z.custom().refine((workType) => {
-  if (!workType) return false;
+  if (workType?.length === 0) return false;
   return true;
 }, "Please select at least one work type");
 
 const hires = z.custom().refine((hireInternsandFreshers) => {
-  if (!hireInternsandFreshers) return false;
+  if (hireInternsandFreshers?.length === 0) return false;
 
   return true;
 }, "Please select at least one work type");
@@ -87,6 +87,12 @@ export const companiesShema = z.object({
   hireInternsandFreshers: hires,
 });
 
+export const jobfilterSchema = z.object({
+  job_type: z.string().optional(),
+  tech_stack: z.string().optional(),
+  hiring_type: z.string().optional(),
+});
+
 export const workTypeData = [
   { value: "onsite", label: "OnSite" },
   { value: "hybrid", label: "Hybrid" },
@@ -96,9 +102,9 @@ export const workTypeData = [
 export const hireInternsandFreshersData = [
   { value: "intern", label: "Interns" },
   { value: "fresher", label: "Freshers" },
-  { value: "experienced", label: "Experienced" },
-  { value: "contract", label: "Contract" },
-  { value: "fulltime", label: "Full Time" },
-  { value: "parttime", label: "Part Time" },
-  { value: "freelance", label: "Freelance" },
+  // { value: "experienced", label: "Experienced" },
+  // { value: "contract", label: "Contract" },
+  // { value: "fulltime", label: "Full Time" },
+  // { value: "parttime", label: "Part Time" },
+  // { value: "freelance", label: "Freelance" },
 ];

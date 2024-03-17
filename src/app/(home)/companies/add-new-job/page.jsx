@@ -1,4 +1,4 @@
-import NewJobFrom from "@/components/NewJobFrom";
+import NewJobFrom from "../../../../components/NewJobFrom";
 
 const page = () => {
   return <NewJobFrom />;

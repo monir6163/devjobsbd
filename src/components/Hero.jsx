@@ -14,7 +14,7 @@ const Hero = () => {
       <div className="overflow-hidden py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="w-full">
-            <h1 className="text-5xl py-2 text-center md:text-left md:text-[82px] font-bold text-gray-900 mb-4 md:mb-6 leading-tight bg-gradient-to-r from-green-600 to-red-700 inline-block text-transparent bg-clip-text">
+            <h1 className="text-5xl py-2 text-center md:text-left md:text-[82px] font-bold text-blue-900 mb-4 md:mb-6 leading-tight inline-block dark:text-gray-100">
               Developer Jobs In Bangladesh
             </h1>
             <p className="text-gray-800 text-center md:text-left leading-loose mb-6 md:mb-8 dark:text-gray-100">

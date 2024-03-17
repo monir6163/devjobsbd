@@ -1,9 +1,12 @@
-import Companies from "@/components/Companies";
-import Filterjob from "@/components/Filterjob";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Filterjob from "../../../components/Filterjob";
+import JobResults from "../../../components/JobResults";
+import { Button } from "../../../components/ui/button";
 
-const page = () => {
+const page = ({
+  searchParams: { job_type, tech_stack, hiring_type, page },
+}) => {
+  const filterValues = { job_type, tech_stack, hiring_type };
   return (
     <main className="max-w-6xl m-auto px-3">
       <div className="py-8 text-center md:text-left">
@@ -23,8 +26,11 @@ const page = () => {
         <div className="border-b pt-4"></div>
       </div>
       <section className="flex flex-col md:flex-row gap-4">
-        <Filterjob />
-        <Companies />
+        <Filterjob filterValues={filterValues} />
+        <JobResults
+          filterValues={filterValues}
+          page={page ? parseInt(page) : undefined}
+        />
       </section>
     </main>
   );
