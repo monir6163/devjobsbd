@@ -46,17 +46,17 @@ const Hero = () => {
             <div className="relative flex flex-col gap-4">
               <div className="h-24 md:h-48">
                 <img
-                  src={MehediImg}
-                  alt="Mehedi"
-                  title="Mehedi Hasan"
+                  src={MonirImg}
+                  alt="Monir"
+                  title="Monir Hossain"
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
               <div className="h-24 md:h-48">
                 <img
-                  src={EmonImg}
-                  title="Emon Hossain"
-                  alt="Emon"
+                  src={MehediImg}
+                  alt="Mehedi"
+                  title="Mehedi Hasan"
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
@@ -82,9 +82,9 @@ const Hero = () => {
               </div>
               <div className="h-24 md:h-48">
                 <img
-                  src={MonirImg}
-                  alt="Monir"
-                  title="Monir Hossain"
+                  src={EmonImg}
+                  title="Emon Hossain"
+                  alt="Emon"
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
