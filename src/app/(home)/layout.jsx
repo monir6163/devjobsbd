@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/react";
 import { Inter as FontSans } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }) {
             speed={200}
           />
           {children}
+          <Analytics />
           <Footer />
         </ThemeProvider>
       </body>
