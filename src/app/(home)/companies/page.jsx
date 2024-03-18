@@ -3,6 +3,13 @@ import Filterjob from "../../../components/Filterjob";
 import JobResults from "../../../components/JobResults";
 import { Button } from "../../../components/ui/button";
 
+export const metadata = {
+  title: "Companies Devjobsbd - Developer Jobs in Bangladesh",
+  description: "Bangladeshi tech company directory listings.",
+  keywords:
+    "company, directory, tech company, tech company directory, bangladeshi tech company, bangladeshi tech company directory, bangladeshi tech company listings, bangladeshi tech company directory listings",
+};
+
 const page = ({
   searchParams: { job_type, tech_stack, hiring_type, page },
 }) => {
