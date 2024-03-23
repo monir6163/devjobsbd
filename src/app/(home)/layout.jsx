@@ -28,7 +28,7 @@ export const metadata = {
       "Find developer jobs in Bangladesh and work from home opportunities. Post a job for free. Find your next software engineering job. Devjobsbd is a job board for developers in Bangladesh.",
     images: [
       {
-        url: "https://devjobsbd.com/og-image.png",
+        url: "https://devjobsbd.com/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "Devjobsbd - Developer Jobs in Bangladesh",

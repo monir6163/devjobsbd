@@ -8,6 +8,7 @@ const WhiteScreen = "/images/devjobsbd-logo-black.png";
 
 const LogoToggle = () => {
   const { theme } = useTheme();
+  console.log(theme);
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -43,6 +44,19 @@ const LogoToggle = () => {
       )}
       {theme === "light" && (
         <Image src={WhiteScreen} alt="devjobsbd" width={120} height={48} />
+      )}
+      {theme === "system" && (
+        <Image
+          src={`${
+            window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? Logo
+              : WhiteScreen
+          }`}
+          alt="devjobsbd"
+          width={120}
+          height={48}
+        />
       )}
       <Badge className="ml-1 -mt-8 border-red-700" variant="outline">
         Beta
