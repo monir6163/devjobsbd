@@ -1,9 +1,11 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
+
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { navLinks } from "../lib/utils";
+import LogoToggle from "./LogoToggle";
 import { ModeToggle } from "./toggle";
-import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 export default function Navbar() {
@@ -31,18 +33,7 @@ export default function Navbar() {
     // sticky top-0 z-50
     <header className="shadow-sm border-b bg-background">
       <div className="max-w-6xl m-auto px-3 py-5 flex items-center justify-between">
-        <Link
-          className="flex items-center text-xl font-bold tracking-wider text-gray-900 dark:text-gray-100"
-          href="/"
-        >
-          <FlagIcon className="h-6 w-6" />
-          <span className="ml-2 text-xl font-semibold uppercase text-gray-700 dark:text-gray-100">
-            Devjobsbd
-          </span>
-          <Badge className="-ml-2 -mt-8 border-red-700" variant="outline">
-            Beta
-          </Badge>
-        </Link>
+        <LogoToggle />
         <nav className="hidden lg:flex space-x-4">
           {navLinks?.map((link, i) => (
             <Button
@@ -99,15 +90,7 @@ export default function Navbar() {
         } transition duration-300 ease-in-out`}
       >
         <div className="w-full pt-4 flex justify-between px-4">
-          <Link
-            className="w-full flex items-center text-sm font-bold tracking-wider text-gray-900 dark:text-gray-100"
-            href="/"
-          >
-            <FlagIcon className="h-6 w-6" />
-            <span className="ml-2 text-base font-semibold uppercase text-gray-700 dark:text-gray-100">
-              Devjobsbd
-            </span>
-          </Link>
+          <LogoToggle />
           <svg
             onClick={toggleMenu}
             className="h-8 w-8 fill-current text-gray-700 hover:text-gray-800 dark:text-gray-100 dark:hover:text-gray-200 cursor-pointer transition-all duration-300 ease-in-out"

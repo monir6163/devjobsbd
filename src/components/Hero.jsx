@@ -45,18 +45,22 @@ const Hero = () => {
           <div className="grid grid-cols-3 gap-4">
             <div className="relative flex flex-col gap-4">
               <div className="h-24 md:h-48">
-                <img
+                <Image
                   src={MonirImg}
                   alt="Monir"
                   title="Monir Hossain"
+                  width={300}
+                  height={300}
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
               <div className="h-24 md:h-48">
-                <img
+                <Image
                   src={MehediImg}
                   alt="Mehedi"
                   title="Mehedi Hasan"
+                  width={300}
+                  height={300}
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
@@ -64,27 +68,31 @@ const Hero = () => {
             <div className="relative h-48 md:h-72 flex self-center">
               <Image
                 src={BabulImg}
-                width={300}
-                height={300}
                 alt="Babul"
                 title="Babul Akter"
+                width={300}
+                height={300}
                 className="w-full h-auto rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
               />
             </div>
             <div className="relative flex flex-col gap-4">
               <div className="h-24 md:h-48">
-                <img
+                <Image
                   src={Rownok}
                   alt="Rownok"
                   title="Rownok Jahan"
+                  width={300}
+                  height={300}
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>
               <div className="h-24 md:h-48">
-                <img
+                <Image
                   src={EmonImg}
-                  title="Emon Hossain"
                   alt="Emon"
+                  title="Emon Hossain"
+                  width={300}
+                  height={300}
                   className="w-full h-full rounded-lg object-cover transform hover:-translate-y-2 transition ease-in-out duration-1000"
                 />
               </div>

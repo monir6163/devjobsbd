@@ -18,6 +18,23 @@ export const metadata = {
     "Find developer jobs in Bangladesh and work from home opportunities. Post a job for free. Find your next software engineering job. Devjobsbd is a job board for developers in Bangladesh.",
   keywords:
     "devjobsbd, devhubsbd, devjobs, devhubs, jobs, job, bd, bangladesh, developer, software, engineer, remote, work, work from home, wfh, job board, job portal, job site, job search, job listing, job posting, job vacancy, job opportunity, job opening, job application",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://devjobsbd.com",
+    site_name: "Devjobsbd",
+    title: "Devjobsbd - Developer Jobs in Bangladesh",
+    description:
+      "Find developer jobs in Bangladesh and work from home opportunities. Post a job for free. Find your next software engineering job. Devjobsbd is a job board for developers in Bangladesh.",
+    images: [
+      {
+        url: "https://devjobsbd.com/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Devjobsbd - Developer Jobs in Bangladesh",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }) {
