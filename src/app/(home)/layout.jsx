@@ -21,14 +21,14 @@ export const metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://devjobsbd.com",
+    url: "https://devjobsbd.vercel.app/",
     site_name: "Devjobsbd",
     title: "Devjobsbd - Developer Jobs in Bangladesh",
     description:
       "Find developer jobs in Bangladesh and work from home opportunities. Post a job for free. Find your next software engineering job. Devjobsbd is a job board for developers in Bangladesh.",
     images: [
       {
-        url: "https://devjobsbd.com/images/og-image.png",
+        url: "https://devjobsbd.vercel.app/images/og-image.png",
         width: 1200,
         height: 630,
         alt: "Devjobsbd - Developer Jobs in Bangladesh",
